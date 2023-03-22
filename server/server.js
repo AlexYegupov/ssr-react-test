@@ -10,7 +10,7 @@
 
 const babelRegister = require('@babel/register');
 babelRegister({
-  ignore: [/[\\\/](build|server\/server|node_modules)[\\\/]/],
+  ignore: [/[\\\/](dist|server\/server|node_modules)[\\\/]/],
   presets: [['react-app', {runtime: 'automatic'}]],
   plugins: ['@babel/transform-modules-commonjs'],
 });
@@ -40,11 +40,10 @@ app.get(
   '/',
   handleErrors(async function(req, res) {
     await waitForWebpack();
-    console.log(`ssr`)
     render(req.url, res);
   })
 );
-app.use(express.static('build'));
+app.use(express.static('dist'));
 app.use(express.static('public'));
 
 app
@@ -84,11 +83,11 @@ function handleErrors(fn) {
 async function waitForWebpack() {
   while (true) {
     try {
-      readFileSync(path.resolve(__dirname, '../build/main.js'));
+      readFileSync(path.resolve(__dirname, '../dist/main.js'));
       return;
     } catch (err) {
       console.log(
-        'Could not find webpack build output. Will retry in a second...'
+        'Could not find webpack dist output. Will retry in a second...'
       );
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
