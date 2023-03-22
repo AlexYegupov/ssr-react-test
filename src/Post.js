@@ -8,7 +8,6 @@
 
 import R from 'react';
 
-
 export default function Post() {
   const [isOk, setIsOk] = R.useState(false);
   const buttonClicked = () => setIsOk(!isOk)
