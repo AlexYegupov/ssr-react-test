@@ -50,7 +50,7 @@ function Content() {
         </Suspense>
       </aside>
       <article className="post">
-        <Suspense fallback={'post...'}>
+        <Suspense fallback={<Spinner />}>
           <Post />
         </Suspense>
         <section className="comments">
@@ -59,7 +59,7 @@ function Content() {
             activate
           </button>
           { commentsVisible &&
-            <Suspense fallback={'comments...'}>
+            <Suspense fallback={<Spinner />}>
               <Comments isVisible={commentsVisible} />
             </Suspense>
           }
