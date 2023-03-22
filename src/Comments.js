@@ -8,12 +8,19 @@
 
 import {useData} from './data';
 
-export default function Comments() {
-  const comments = useData();
+
+
+export default function Comments({ isVisible = false }) {
+  const comments = ['c1', 'c2', 'c3'];
+
+  if (!isVisible) {
+    return ''
+  }
+  
   return (
     <>
       {comments.map((comment, i) => (
-        <p className="comment" key={i}>
+        <p className="comment" key={comment}>
           {comment}
         </p>
       ))}

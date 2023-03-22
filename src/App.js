@@ -6,7 +6,7 @@
  *
  */
 
-import { useState, Suspense, lazy } from 'react';
+import { useState, Suspense, lazy, startTransition, useCallback } from 'react';
 import {ErrorBoundary} from 'react-error-boundary';
 import Html from './Html';
 import Spinner from './Spinner';
@@ -14,8 +14,8 @@ import Spinner2 from './Spinner2';
 import Layout from './Layout';
 import NavBar from './NavBar';
 
-import Sidebar from './Sidebar';
-//const Sidebar = lazy(() => import('./Sidebar' /* webpackPrefetch: false */));
+//import Sidebar from './Sidebar';
+const Sidebar = lazy(() => import('./Sidebar' /* webpackPrefetch: false */));
 
 const Post = lazy(() => import('./Post' /* webpackPrefetch: false */));
 const Comments = lazy(() => import('./Comments' /* webpackPrefetch: false */));
@@ -37,6 +37,10 @@ function Content() {
   const commentsVisible = aa[0]
   const setCommentsVisible = aa[1]
 
+  const buttonClicked = () => {
+    setCommentsVisible(true)
+  }
+
   return (
     <Layout>
       <NavBar />
@@ -46,17 +50,19 @@ function Content() {
         </Suspense>
       </aside>
       <article className="post">
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={'post...'}>
           <Post />
         </Suspense>
         <section className="comments">
           <h2>Comments</h2>
-          <button onClick={() => setCommentsVisible(true)} className="Button">
+          <button onClick={buttonClicked} className="Button">
             activate
           </button>
-          <Suspense fallback={<Spinner2 n={3} />}>
-            { commentsVisible && <Comments /> }
-          </Suspense>
+          { commentsVisible &&
+            <Suspense fallback={'comments...'}>
+              <Comments isVisible={commentsVisible} />
+            </Suspense>
+          }
         </section>
         <h2>Thanks for reading!</h2>
       </article>

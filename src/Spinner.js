@@ -7,7 +7,6 @@
  */
 
 export default function Spinner({active = true, n = 0}) {
-  console.log(`Spinner:`, active, n)
   return (
     <div
       className={['spinner', active && 'spinner--active'].join(' ')}
