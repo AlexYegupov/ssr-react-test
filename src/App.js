@@ -10,7 +10,6 @@ import { useState, Suspense, lazy, startTransition, useCallback } from 'react';
 import {ErrorBoundary} from 'react-error-boundary';
 import Html from './Html';
 import Spinner from './Spinner';
-import Spinner2 from './Spinner2';
 import Layout from './Layout';
 import NavBar from './NavBar';
 

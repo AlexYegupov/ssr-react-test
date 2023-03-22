@@ -6,7 +6,13 @@
  *
  */
 
+import R from 'react';
+
+
 export default function Post() {
+  const [isOk, setIsOk] = R.useState(false);
+  const buttonClicked = () => setIsOk(!isOk)
+
   return (
     <>
       <h1>The post</h1>
@@ -23,6 +29,7 @@ export default function Post() {
         Also notice that the JS for comments and sidebar has been code-split,
         but HTML for it is still included in the server output.
       </p>
+      <button onClick={buttonClicked}>{isOk ? '1' : '2'}</button>
     </>
   );
 }
