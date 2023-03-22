@@ -7,6 +7,7 @@
  */
 
 export default function Html({assets, children, title}) {
+  console.log(`assets:`, assets)
   return (
     <html lang="en">
       <head>

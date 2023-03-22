@@ -9,7 +9,7 @@
 export default function Post() {
   return (
     <>
-      <h1>Hello world</h1>
+      <h1>The post</h1>
       <p>
         This demo is <b>artificially slowed down</b>. Open{' '}
         <code>server/delays.js</code> to adjust how much different things are

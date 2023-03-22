@@ -7,8 +7,7 @@
  */
 
 import * as React from "react";
-// import {renderToString} from 'react-dom/server';
-import { pipeToNodeWritable } from "react-dom/server";
+import { renderToString, pipeToNodeWritable } from "react-dom/server";
 import App from "../src/App";
 import { DataProvider } from "../src/data";
 import { API_DELAY, ABORT_DELAY } from "./delays";
@@ -22,14 +21,16 @@ let assets = {
 module.exports = function render(url, res) {
   // This is how you would wire it up previously:
   //
-  // res.send(
-  //   '<!DOCTYPE html>' +
-  //   renderToString(
-  //     <DataProvider data={data}>
-  //       <App assets={assets} />
-  //     </DataProvider>,
-  //   )
-  // );
+  res.send(
+    '<!DOCTYPE html>' +
+    renderToString(
+      <DataProvider data={data}>
+        <App assets={assets} />
+      </DataProvider>,
+    )
+  );
+  return;
+
 
   // The new wiring is a bit more involved.
   res.socket.on("error", (error) => {
@@ -47,7 +48,7 @@ module.exports = function render(url, res) {
         // If something errored before we started streaming, we set the error code appropriately.
         res.statusCode = didError ? 500 : 200;
         res.setHeader("Content-type", "text/html");
-        res.write("<!DOCTYPE html>");
+        //res.write("<!DOCTYPE html>");
         startWriting();
       },
       onError(x) {
